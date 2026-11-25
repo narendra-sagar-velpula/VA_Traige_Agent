@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "va-triage-agent"
+version = "1.0.0"
+description = "AI-assisted vulnerability analysis: collect, triage, report and evaluate scanner findings"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.7",
+  "pyyaml>=6",
+  "packaging>=23",
+  "mcp>=2.0",
+  "openai>=1.40",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "bandit>=1.7"]
+
+[project.scripts]
+vatriage = "vatriage.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["vatriage*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["lab"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "S", "UP"]
+ignore = ["S101", "S603", "S607", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
